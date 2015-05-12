@@ -91,6 +91,7 @@ setup(
     },
 
     dependency_links=[
+        'git+git://github.com/duggan/midiutil.git',
         'https://code.google.com/p/midiutil/downloads/detail?name=MIDIUtil-0.89.tar.gz'
     ],
 
