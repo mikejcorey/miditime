@@ -72,14 +72,14 @@ setup(
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().
     # packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
-    packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
+    packages=[],
 
     # List run-time dependencies here.  These will be installed by pip when
     # your project is installed. For an analysis of "install_requires" vs pip's
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
     # install_requires=['midiutil'],
-    install_requires=['git+git://github.com/duggan/midiutil'],
+    # install_requires=['git+git://github.com/duggan/midiutil'],
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). You can install these using the following syntax,
@@ -89,6 +89,10 @@ setup(
         # 'dev': ['check-manifest'],
         # 'test': ['coverage'],
     },
+
+    dependency_links=[
+        'https://code.google.com/p/midiutil/downloads/detail?name=MIDIUtil-0.89.tar.gz'
+    ],
 
     # If there are data files included in your packages that need to be
     # installed, specify them here.  If using Python 2.6 or less, then these
