@@ -81,7 +81,7 @@ def write_midi(note_list, tempo, outfile):
     time = 0
 
     # Add track name and tempo.
-    MyMIDI.addTrackName(track, time, "Quakes 1")
+    MyMIDI.addTrackName(track, time, "Track 1")
     MyMIDI.addTempo(track, time, tempo)
 
     # Add a note. addNote expects the following information:
