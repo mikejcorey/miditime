@@ -86,7 +86,7 @@ note_list = []
 for d in my_data_timed:
     note_list.append([
         d['beat']) - start_time,
-        self.mag_to_pitch_tuned(d['magnitude']),
+        mag_to_pitch_tuned(d['magnitude']),
         100,  # attack
         1  # duration, in beats
     ])
