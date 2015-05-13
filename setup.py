@@ -6,16 +6,7 @@ https://github.com/pypa/sampleproject
 """
 
 # Always prefer setuptools over distutils
-from setuptools import setup, find_packages
-# To use a consistent encoding
-from codecs import open
-from os import path
-
-here = path.abspath(path.dirname(__file__))
-
-# Get the long description from the relevant file
-with open(path.join(here, 'DESCRIPTION.rst'), encoding='utf-8') as f:
-    long_description = f.read()
+from setuptools import setup
 
 setup(
     name='miditime',
@@ -23,10 +14,10 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.1.0a1',
+    version='0.1.0a4',
 
     description='Generate MIDI files from time series data. You can control can control what octaves and octave ranges you want.',
-    long_description=long_description,
+    # long_description=long_description,
 
     # The project's main homepage.
     url='https://github.com/cirlabs/miditime',
@@ -47,10 +38,11 @@ setup(
         'Development Status :: 3 - Alpha',
 
         # Indicate who your project is intended for
-        'Intended Audience :: Journalists, developers and data enthusiasts',
-        'Topic :: Data visualization',
-        'Topic :: Audio',
-        'Topic :: MIDI',
+        'Intended Audience :: Developers',
+        'Intended Audience :: Other Audience',
+        'Topic :: Multimedia :: Sound/Audio',
+        'Topic :: Multimedia :: Sound/Audio :: MIDI',
+        'Topic :: Scientific/Engineering :: Visualization',
 
         # Pick your license as you wish (should match "license" above)
         'License :: OSI Approved :: MIT License',
@@ -75,49 +67,5 @@ setup(
     packages=(
         'miditime',
         'midiutil'
-    ),
-
-    # List run-time dependencies here.  These will be installed by pip when
-    # your project is installed. For an analysis of "install_requires" vs pip's
-    # requirements files see:
-    # https://packaging.python.org/en/latest/requirements.html
-    # install_requires=['midiutil'],
-    # install_requires=['git+git://github.com/duggan/midiutil'],
-
-    # List additional groups of dependencies here (e.g. development
-    # dependencies). You can install these using the following syntax,
-    # for example:
-    # $ pip install -e .[dev,test]
-    extras_require={
-        # 'dev': ['check-manifest'],
-        # 'test': ['coverage'],
-    },
-
-    dependency_links=[
-        # 'http://github.com/duggan/midiutil/tarball/master/build/lib/midiutil'
-        # 'git+git://github.com/duggan/midiutil.git',
-        # 'https://code.google.com/p/midiutil/downloads/detail?name=MIDIUtil-0.89.tar.gz'
-    ],
-
-    # If there are data files included in your packages that need to be
-    # installed, specify them here.  If using Python 2.6 or less, then these
-    # have to be included in MANIFEST.in as well.
-    package_data={
-        # 'sample': ['package_data.dat'],
-    },
-
-    # Although 'package_data' is the preferred approach, in some case you may
-    # need to place data files outside of your packages. See:
-    # http://docs.python.org/3.4/distutils/setupscript.html#installing-additional-files # noqa
-    # In this case, 'data_file' will be installed into '<sys.prefix>/my_data'
-    # data_files=[('my_data', ['data/data_file'])],
-
-    # To provide executable scripts, use entry points in preference to the
-    # "scripts" keyword. Entry points provide cross-platform support and allow
-    # pip to create the appropriate form of executable for the target platform.
-    entry_points={
-        # 'console_scripts': [
-        #     'sample=sample:main',
-        # ],
-    },
+    )
 )
