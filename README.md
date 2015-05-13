@@ -92,7 +92,7 @@ for d in my_data_timed:
     ])
 
 # Add a track with those notes
-mymidi.add_track(midinotes)
+mymidi.add_track(note_list)
 
 # Output the .mid file
 mymidi.save_midi()
