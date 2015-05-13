@@ -81,8 +81,14 @@ Set up some functions to scale your other variable (magnitude in our case) to ma
 
 ```python
 def mag_to_pitch_tuned(magnitude):
-    # Where does this data point sit in the domain of your data? (I.E. the min magnitude is 3, the max in 5.6). In this case True means the scale is reversed, so the highest value will return the lowest percentage.
-    scale_pct = mymidi.linear_scale_pct(3, 5.7, magnitude, True)
+    # Where does this data point sit in the domain of your data? (I.E. the min magnitude is 3, the max in 5.6). In this case the optional 'True' means the scale is reversed, so the highest value will return the lowest percentage.
+    scale_pct = mymidi.linear_scale_pct(3, 5.7, magnitude)
+
+    # Another option: Linear scale, reverse order
+    # scale_pct = mymidi.linear_scale_pct(3, 5.7, magnitude, True)
+
+    # Another option: Logarithmic scale, reverse order
+    # scale_pct = mymidi.log_scale_pct(3, 5.7, magnitude, True)
 
     # Pick a range of notes. This allows you to play in a key.
     c_major = ['C', 'D', 'E', 'F', 'G', 'A', 'B']
