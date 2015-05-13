@@ -78,7 +78,7 @@ Get the earliest date in your series so you can set that to 0 in the MIDI:
 start_time = my_data_timed[0]['beat'])
 ```
 
-Set up some functions to scale your other variable (magnitude in our case) to match your desired mode/key and octave range. There are helper methods to assist this scaling, very similar to a charting library like D3.
+Set up some functions to scale your other variable (magnitude in our case) to match your desired mode/key and octave range. There are helper methods to assist this scaling, very similar to a charting library like D3. You can choose a linear or logarithmic scale.
 
 ```python
 def mag_to_pitch_tuned(magnitude):
@@ -129,6 +129,8 @@ This software is released under an MIT license. It would be awful nice if you cr
 
 Credits
 ----------
+
+Many thanks to Julia Smith for helping me to understand musical keys/modes better.
 
 MIDITime is a wrapper around the actual midi-making hotness of [midiutil](https://github.com/duggan/midiutil), produced by [Ross Duggan](https://github.com/duggan). I have included midiutil in this package [per his recommendation](https://github.com/duggan/midiutil/blob/master/README.txt).
 
