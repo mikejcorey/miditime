@@ -14,7 +14,7 @@ Installing
 pip install miditime
 ```
 
-Using
+Usage
 ----------
 
 Very basic:
@@ -23,6 +23,38 @@ from miditime.MIDITime import MIDITime
 
 # Instantiate the class with a tempo (120bpm is the default) and an output file destination.
 mymidi = MIDITime(120, 'myfile.mid')
+
+# Create a list of notes. Each note is a list: [time, pitch, attack, duration]
+midinotes = [
+    [0, 60, 200, 3],  #At 0 beats (the start), Middle C with attack 200, for 3 beats
+    [10, 61, 200, 4]  #At 10 beats (12 seconds from start), C#5 with attack 200, for 4 beats
+]
+
+# Add a track with those notes
+mymidi.add_track(midinotes)
+
+# Output the .mid file
+mymidi.save_midi()
+
+```
+
+A little more fun, a lot more control:
+```python
+from miditime.MIDITime import MIDITime
+
+# Instantiate the class with a tempo (120bpm is the default) and an output file destination.
+mymidi = MIDITime(120, 'myfile.mid')
+
+# Bring in some data (this is some earthquakes)
+
+my_data = [
+    {'event_date': '2011-11-05 11:24:15+00:00', 'magnitude': 3.4},
+    {'event_date': '2011-11-05 13:42:25+00:00', 'magnitude': 3.2},
+    {'event_date': '2011-11-05 14:36:30+00:00', 'magnitude': 3.6},
+    {'event_date': '2011-11-06 01:03:58+00:00', 'magnitude': 3.0},
+    {'event_date': '2011-11-06 03:53:10+00:00', 'magnitude': 5.6},
+    {'event_date': '2011-11-06 04:03:40+00:00', 'magnitude': 4.0}
+]
 
 # Create a list of notes. Each note is a list: [time, pitch, attack, duration]
 midinotes = [
