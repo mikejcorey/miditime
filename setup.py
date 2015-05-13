@@ -67,5 +67,7 @@ setup(
     packages=(
         'miditime',
         'midiutil'
-    )
+    ),
+    setup_requires=['setuptools-markdown'],
+    long_description_markdown_filename='README.md',
 )
