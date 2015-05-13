@@ -41,11 +41,15 @@ mymidi.save_midi()
 A little more fun, a lot more control:
 ```python
 from miditime.MIDITime import MIDITime
+```
+Instantiate the class with a tempo (120bpm is the default), an output file destination,  the number of seconds you want to represent a year in the final song (default is 5 sec/year), the base octave (C5 is middle C, so the default is 5, and how many octaves you want your output to range over (default is 1).
 
-# Instantiate the class with a tempo (120bpm is the default), an output file destination,  the number of seconds you want to represent a year in the final song (default is 5 sec/year), the base octave (C5 is middle C, so the default is 5, and how many octaves you want your output to range over (default is 1).
+```python
 mymidi = MIDITime(120, 'myfile.mid', 5, 5, 1)
+```
 
-# Bring in some data (this is some earthquakes). I'm assuming your data is already in date order, from oldest to newest.
+Bring in some data (this is some earthquakes). I'm assuming your data is already in date order, from oldest to newest.
+```python
 my_data = [
     {'event_date': <datetime object>, 'magnitude': 3.4},
     {'event_date': <datetime object>, 'magnitude': 3.2},
@@ -54,17 +58,29 @@ my_data = [
     {'event_date': <datetime object>, 'magnitude': 5.6},
     {'event_date': <datetime object>, 'magnitude': 4.0}
 ]
+```
 
-# Convert your date/time data into an integer, like days since the epoch (Jan. 1, 1970). You can use the days_since_epoch() helper method, or not:
+Convert your date/time data into an integer, like days since the epoch (Jan. 1, 1970). You can use the days_since_epoch() helper method, or not:
+
+```python
 my_data_epoched = [{d['days_since_epoch']: mymidi.days_since_epoch(d['event_date']), d['magnitude']} for d in my_data]
+```
 
-# Convert your integer date/time to something reasonable for a song. For example, at 120 beats per minute, you'll need to scale the data down a lot to avoid a very long song if your data spans years. This uses the seconds_per_year attribute you set at the top, so if your date is converted to something other than days you may need to do your own conversion. But if your dataset spans years and your dates are in days (with fractions is fine), use the beat() helper method.
+Convert your integer date/time to something reasonable for a song. For example, at 120 beats per minute, you'll need to scale the data down a lot to avoid a very long song if your data spans years. This uses the seconds_per_year attribute you set at the top, so if your date is converted to something other than days you may need to do your own conversion. But if your dataset spans years and your dates are in days (with fractions is fine), use the beat() helper method.
+
+```python
 my_data_timed = [{d['beat']: mymidi.beat(d['days_since_epoch']), d['magnitude']} for d in my_data_epoched]
+```
 
-# Get the earliest date in your series so you can set that to 0 in the MIDI:
+Get the earliest date in your series so you can set that to 0 in the MIDI:
+
+```python
 start_time = my_data_timed[0]['beat'])
+```
 
-# Set up some functions to scale your other variable (magnitude in our case) to match your desired mode/key and octave range. There are helper methods to assist this scaling, very similar to a charting library like D3.
+Set up some functions to scale your other variable (magnitude in our case) to match your desired mode/key and octave range. There are helper methods to assist this scaling, very similar to a charting library like D3.
+
+```python
 def mag_to_pitch_tuned(magnitude):
     # Where does this data point sit in the domain of your data? (I.E. the min magnitude is 3, the max in 5.6). In this case True means the scale is reversed, so the highest value will return the lowest percentage.
     scale_pct = self.linear_scale_pct(3, 5.7, magnitude, True)
@@ -79,8 +95,11 @@ def mag_to_pitch_tuned(magnitude):
     midi_pitch = self.note_to_midi_pitch(note)
 
     return midi_pitch
+```
 
-# Now build your note list
+Now build your note list
+
+```python
 note_list = []
 
 for d in my_data_timed:
@@ -90,7 +109,11 @@ for d in my_data_timed:
         100,  # attack
         1  # duration, in beats
     ])
+```
 
+And finish
+
+```python
 # Add a track with those notes
 mymidi.add_track(note_list)
 
