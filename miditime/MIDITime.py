@@ -11,22 +11,37 @@
 #              software is distributed.
 #-----------------------------------------------------------------------------
 
+import datetime
 from midiutil.MidiFile import MIDIFile
 
 
 class MIDITime(object):
 
-    def __init__(self, tempo=120, outfile='miditime.mid'):
+    def __init__(self, tempo=120, outfile='miditime.mid', seconds_per_year=5, base_octave=5, octave_range=1):
         self.tempo = tempo
         self.outfile = outfile
         self.tracks = []
+        self.epoch = datetime(1970, 1, 1)
+        self.seconds_per_year = seconds_per_year
+        self.base_octave = base_octave
+        self.octave_range = octave_range
 
-    def scale_to_note(self, mode, octave, scale_pct, octave_range=1):
+    def beat(self, numdays):
+        beats_per_second = self.tempo/60.0
+        beats_per_datayear = self.seconds_per_year*beats_per_second
+        beats_per_dataday = beats_per_datayear/365.25
+
+        return round(beats_per_dataday*numdays, 2)
+
+    def days_since_epoch(self, input):
+        return (input - self.epoch).total_seconds()/60/60/24  # How many days, with fractions
+
+    def scale_to_note(self, scale_pct, mode):
             full_mode = []
             n = 0
-            while n < octave_range:
+            while n < self.octave_range:
                 for m in mode:
-                    current_octave = str(octave + (n*1))
+                    current_octave = str(self.base_octave + (n*1))
                     full_mode.append(m + current_octave)
                 n += 1
             index = int(scale_pct*float(len(full_mode)))
