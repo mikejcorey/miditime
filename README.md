@@ -17,7 +17,7 @@ pip install miditime
 Usage
 ----------
 
-## Very basic:
+### Very basic:
 ```python
 from miditime.MIDITime import MIDITime
 
@@ -38,7 +38,7 @@ mymidi.save_midi()
 
 ```
 
-## A little more fun, a lot more control:
+### A little more fun, a lot more control:
 
 Instantiate the class with a tempo (120bpm is the default), an output file destination,  the number of seconds you want to represent a year in the final song (default is 5 sec/year), the base octave (C5 is middle C, so the default is 5, and how many octaves you want your output to range over (default is 1).
 
