@@ -7,7 +7,7 @@
 #
 # Created:     2015/05/12
 # Copyright:   (c) 2015 Michael Corey
-# License:     Please see License.txt for the terms under which this
+# License:     Please see README for the terms under which this
 #              software is distributed.
 #-----------------------------------------------------------------------------
 
