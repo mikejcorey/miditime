@@ -11,7 +11,7 @@
 #              software is distributed.
 #-----------------------------------------------------------------------------
 
-import datetime
+from datetime import datetime
 from midiutil.MidiFile import MIDIFile
 
 
