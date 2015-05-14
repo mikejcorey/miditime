@@ -12,6 +12,7 @@
 #-----------------------------------------------------------------------------
 
 from datetime import datetime
+import pytz
 from midiutil.MidiFile import MIDIFile
 
 
@@ -39,9 +40,17 @@ class MIDITime(object):
         else:
             return None
 
+    def normalize_datetime(self, input, compare_date):
+        tz_name = self.check_tz(input)
+        if tz_name:
+            tz = pytz.timezone(tz_name)
+            return compare_date.astimezone(tz)
+        else:
+            return compare_date
+
     def days_since_epoch(self, input):
-        print self.check_tz(input)
-        return (input - self.epoch).total_seconds()/60/60/24  # How many days, with fractions
+        normalized_epoch = self.normalize_datetime(input, self.epoch)
+        return (input - normalized_epoch).total_seconds()/60/60/24  # How many days, with fractions
 
     def scale_to_note(self, scale_pct, mode):
             full_mode = []
