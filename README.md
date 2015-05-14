@@ -127,6 +127,13 @@ mymidi.save_midi()
 
 ```
 
+### Play your music:
+There are many programs to work with MIDI, but [timidity](http://sourceforge.net/projects/timidity/) (installable with apt) is a simple command-line one if you just want to hear what you hath wrought.
+
+```
+timidity mymidifilename.mid
+```
+
 License
 ----------
 
