@@ -41,9 +41,8 @@ class MIDITime(object):
             return None
 
     def normalize_datetime(self, input, compare_date):
-        tz_name = self.check_tz(input)
-        if tz_name:
-            tz = pytz.timezone(tz_name)
+        tz = self.check_tz(input)
+        if tz:
             return compare_date.astimezone(tz)
         else:
             return compare_date
