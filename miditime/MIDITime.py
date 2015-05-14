@@ -43,7 +43,7 @@ class MIDITime(object):
     def normalize_datetime(self, input, compare_date):
         tz = self.check_tz(input)
         if tz:
-            return compare_date.astimezone(tz)
+            return tz.localize(compare_date)
         else:
             return compare_date
 
