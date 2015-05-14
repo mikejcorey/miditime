@@ -11,8 +11,7 @@
 #              software is distributed.
 #-----------------------------------------------------------------------------
 
-from datetime import datetime
-import pytz
+import datetime
 from midiutil.MidiFile import MIDIFile
 
 
@@ -22,7 +21,7 @@ class MIDITime(object):
         self.tempo = tempo
         self.outfile = outfile
         self.tracks = []
-        self.epoch = datetime(1970, 1, 1)
+        self.epoch = datetime.datetime(1970, 1, 1)
         self.seconds_per_year = seconds_per_year
         self.base_octave = base_octave
         self.octave_range = octave_range
@@ -40,7 +39,11 @@ class MIDITime(object):
         else:
             return None
 
+    # Match the compare date to the timezone of whatever your input date is, if the input datetime is timezone-aware
     def normalize_datetime(self, input, compare_date):
+        # First, coerce to datetime in case it's a date
+        if type(input) is datetime.date:
+            input = datetime.combine(input, datetime.min.time())
         tz = self.check_tz(input)
         if tz:
             return tz.localize(compare_date)
