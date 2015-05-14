@@ -33,7 +33,14 @@ class MIDITime(object):
 
         return round(beats_per_dataday*numdays, 2)
 
+    def check_tz(self, input):
+        if input.tzinfo:
+            return input.tzinfo
+        else:
+            return None
+
     def days_since_epoch(self, input):
+        print self.check_tz(input)
         return (input - self.epoch).total_seconds()/60/60/24  # How many days, with fractions
 
     def scale_to_note(self, scale_pct, mode):
