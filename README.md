@@ -62,13 +62,13 @@ my_data = [
 Convert your date/time data into an integer, like days since the epoch (Jan. 1, 1970). You can use the days_since_epoch() helper method, or not:
 
 ```python
-my_data_epoched = [{d['days_since_epoch']: mymidi.days_since_epoch(d['event_date']), d['magnitude']} for d in my_data]
+my_data_epoched = [{'days_since_epoch': mymidi.days_since_epoch(d['event_date']), 'magnitude': d['magnitude']} for d in my_data]
 ```
 
 Convert your integer date/time to something reasonable for a song. For example, at 120 beats per minute, you'll need to scale the data down a lot to avoid a very long song if your data spans years. This uses the seconds_per_year attribute you set at the top, so if your date is converted to something other than days you may need to do your own conversion. But if your dataset spans years and your dates are in days (with fractions is fine), use the beat() helper method.
 
 ```python
-my_data_timed = [{d['beat']: mymidi.beat(d['days_since_epoch']), d['magnitude']} for d in my_data_epoched]
+my_data_timed = [{'beat': mymidi.beat(d['days_since_epoch']), 'magnitude': d['magnitude']} for d in my_data_epoched]
 ```
 
 Get the earliest date in your series so you can set that to 0 in the MIDI:
