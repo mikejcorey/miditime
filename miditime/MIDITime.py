@@ -41,9 +41,14 @@ class MIDITime(object):
 
     # Match the compare date to the timezone of whatever your input date is, if the input datetime is timezone-aware
     def normalize_datetime(self, input, compare_date):
-        # First, coerce to datetime in case it's a date
+        # if input is date, make epoch a date
         if type(input) is datetime.date:
-            input = datetime.datetime.combine(input, datetime.datetime.min.time())
+            return compare_date.date()
+        # # First, coerce to datetime in case it's a date
+        # if type(input) is datetime.date:
+        #     input = datetime.datetime.combine(input, datetime.datetime.min.time())
+
+        # If tz data present, make epoch tz-aware
         tz = self.check_tz(input)
         if tz:
             return tz.localize(compare_date)
