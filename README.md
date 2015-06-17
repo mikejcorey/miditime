@@ -7,6 +7,8 @@ MIDITime converts any kind of time series data into pitch, attack and duration v
 
 MIDI files aren't technically audio -- they're instructions on how software instruments should be played. You can either play .mid files directly in some music applications, or import them into a wide variety of music editors (like ProTools, Ableton, MaxMSP) and add a ton of bells and whistles to get broadcast-ready audio.
 
+We used MIDITime to produce the data sonification in [this episode of Reveal](https://www.revealnews.org/episodes/power-struggle-the-perilous-price-of-americas-energy-boom/#segment-oklahomas-man-made-earthquakes). The musical track -- without the talking -- [is here](https://www.revealnews.org/article/listen-to-the-music-of-seismic-activity-in-oklahoma/).
+
 Installing
 ----------
 
