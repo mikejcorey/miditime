@@ -89,7 +89,7 @@ class MIDITime(object):
         return midinum
 
     def linear_scale_pct(self, domain_min, domain_max, input, reverse=False):
-        domain_range = domain_max - domain_min
+        domain_range = float(domain_max) - float(domain_min)
         domain_pct = (input - domain_min)/domain_range
 
         if reverse:
