@@ -22,6 +22,38 @@ class DateTest(unittest.TestCase):
         self.assertEqual(m.days_since_epoch(dt), 0)
 
 
+class OctaveTest(unittest.TestCase):
+    def testSimpleMode0(self):
+        m = MIDITime(base_octave=5, octave_range=3)
+        pct = m.linear_scale_pct(0, 5.7, 0, reverse=False)
+        self.assertEqual(m.scale_to_note(pct, ['C', 'D', 'E', 'F', 'G', 'A', 'B']), 'C5')
+
+    def testSimpleMode70(self):
+        m = MIDITime(base_octave=5, octave_range=3)
+        pct = m.linear_scale_pct(0, 5.7, 4.0, reverse=False)
+        self.assertEqual(m.scale_to_note(pct, ['C', 'D', 'E', 'F', 'G', 'A', 'B']), 'C7')
+
+    def testSimpleMode100(self):
+        m = MIDITime(base_octave=5, octave_range=3)
+        pct = m.linear_scale_pct(0, 5.7, 5.7, reverse=False)
+        self.assertEqual(m.scale_to_note(pct, ['C', 'D', 'E', 'F', 'G', 'A', 'B']), 'B7')
+
+    def testComplexMode0(self):
+        m = MIDITime(base_octave=5, octave_range=3)
+        pct = m.linear_scale_pct(0, 5.7, 0, reverse=False)
+        self.assertEqual(m.scale_to_note(pct, ['D', 'E', 'F', 'G', 'A', 'Bb', 'C']), 'D5')
+
+    def testComplexMode70(self):
+        m = MIDITime(base_octave=5, octave_range=3)
+        pct = m.linear_scale_pct(0, 5.7, 4.0, reverse=False)
+        self.assertEqual(m.scale_to_note(pct, ['D', 'E', 'F', 'G', 'A', 'Bb', 'C']), 'D7')
+
+    def testComplexMode100(self):
+        m = MIDITime(base_octave=5, octave_range=3)
+        pct = m.linear_scale_pct(0, 5.7, 5.7, reverse=False)
+        self.assertEqual(m.scale_to_note(pct, ['D', 'E', 'F', 'G', 'A', 'Bb', 'C']), 'Bb7')
+
+
 def main():
     unittest.main()
 

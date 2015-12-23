@@ -25,6 +25,7 @@ class MIDITime(object):
         self.seconds_per_year = seconds_per_year
         self.base_octave = base_octave
         self.octave_range = octave_range
+        self.note_chart = [["C"], ["C#", "Db"], ["D"], ["D#", "Eb"], ["E"], ["F"], ["F#", "Gb"], ["G"], ["G#", "Ab"], ["A"], ["A#", "Bb"], ["B"]]
 
     def beat(self, numdays):
         beats_per_second = self.tempo/60.0
@@ -59,7 +60,7 @@ class MIDITime(object):
         normalized_epoch = self.normalize_datetime(input, self.epoch)
         return (input - normalized_epoch).total_seconds()/60/60/24  # How many days, with fractions
 
-    def scale_to_note(self, scale_pct, mode):
+    def scale_to_note_classic(self, scale_pct, mode):  # Only works in multi-octave mode if in C Major (i.e. all the notes are used. Should not be used in other keys, unless octave range is 1.)
             full_mode = []
             n = 0
             while n < self.octave_range:
@@ -70,16 +71,53 @@ class MIDITime(object):
             index = int(scale_pct*float(len(full_mode)))
             if index >= len(full_mode):
                 index = len(full_mode) - 1
+            print full_mode[index]
             return full_mode[index]
+
+    def scale_to_note(self, scale_pct, mode):  # Manually go through notes so it doesn't inaccurately jump an octave sometimes.
+        # First, write out a list of the possible notes for your octave range (i.e. all of the notes on the keyboard)
+        full_c_haystack = []
+        n = 0
+        while n < self.octave_range:
+            for note_group in self.note_chart:
+                out_group = []
+                for note in note_group:
+                    current_octave = self.base_octave + (n*1)
+                    out_group.append(note + str(current_octave))
+                full_c_haystack.append(out_group)
+            n += 1
+
+        full_mode = []
+        n = 0
+        while n < self.octave_range:
+            for note in mode:
+                note_found = False
+                note_key = None
+                for groupkey, group in enumerate(full_c_haystack):
+                    for gnote in group:
+                        if gnote[:-1] == note:
+                            full_mode.append(gnote)
+                            note_found = True
+                            note_key = groupkey
+                    if note_found:
+                        break
+                full_c_haystack = full_c_haystack[note_key:]
+            n += 1
+
+        # Now run through your specified mode and pick the exact notes in those octaves
+        index = int(scale_pct*float(len(full_mode)))
+        if index >= len(full_mode):
+            index = len(full_mode) - 1
+
+        return full_mode[index]
 
     def note_to_midi_pitch(self, notename):
         midinum = 0
-        note_chart = [["C"], ["C#", "Db"], ["D"], ["D#", "Eb"], ["E"], ["F"], ["F#", "Gb"], ["G"], ["G#", "Ab"], ["A"], ["A#", "Bb"], ["B"]]
         letter = notename[:-1]
         octave = notename[-1]
 
         i = 0
-        for note in note_chart:
+        for note in self.note_chart:
             for form in note:
                 if letter == form:
                     midinum = i
