@@ -76,7 +76,7 @@ my_data_timed = [{'beat': mymidi.beat(d['days_since_epoch']), 'magnitude': d['ma
 Get the earliest date in your series so you can set that to 0 in the MIDI:
 
 ```python
-start_time = my_data_timed[0]['beat'])
+start_time = my_data_timed[0]['beat']
 ```
 
 Set up some functions to scale your other variable (magnitude in our case) to match your desired mode/key and octave range. There are helper methods to assist this scaling, very similar to a charting library like D3. You can choose a linear or logarithmic scale.
@@ -111,7 +111,7 @@ note_list = []
 
 for d in my_data_timed:
     note_list.append([
-        d['beat']) - start_time,
+        d['beat'] - start_time,
         mag_to_pitch_tuned(d['magnitude']),
         100,  # attack
         1  # duration, in beats
