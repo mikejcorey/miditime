@@ -61,18 +61,18 @@ class MIDITime(object):
         return (input - normalized_epoch).total_seconds()/60/60/24  # How many days, with fractions
 
     def scale_to_note_classic(self, scale_pct, mode):  # Only works in multi-octave mode if in C Major (i.e. all the notes are used. Should not be used in other keys, unless octave range is 1.)
-            full_mode = []
-            n = 0
-            while n < self.octave_range:
-                for m in mode:
-                    current_octave = str(self.base_octave + (n*1))
-                    full_mode.append(m + current_octave)
-                n += 1
-            index = int(scale_pct*float(len(full_mode)))
-            if index >= len(full_mode):
-                index = len(full_mode) - 1
-            print(full_mode[index])
-            return full_mode[index]
+        full_mode = []
+        n = 0
+        while n < self.octave_range:
+            for m in mode:
+                current_octave = str(self.base_octave + (n*1))
+                full_mode.append(m + current_octave)
+            n += 1
+        index = int(scale_pct*float(len(full_mode)))
+        if index >= len(full_mode):
+            index = len(full_mode) - 1
+        print(full_mode[index])
+        return full_mode[index]
 
     def scale_to_note(self, scale_pct, mode):  # Manually go through notes so it doesn't inaccurately jump an octave sometimes.
         # First, write out a list of the possible notes for your octave range (i.e. all of the notes on the keyboard)
