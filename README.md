@@ -146,5 +146,5 @@ Credits
 
 Many thanks to Julia Smith for helping me to understand musical keys/modes better.
 
-MIDITime is a wrapper around the actual midi-making hotness of [midiutil](https://github.com/duggan/midiutil), produced by [Ross Duggan](https://github.com/duggan). I have included midiutil in this package [per his recommendation](https://github.com/duggan/midiutil/blob/master/README.txt).
+MIDITime is a wrapper around the actual midi-making hotness of [midiutil](https://github.com/duggan/midiutil), produced by [Mark Conway Wirt](http://www.emergentmusics.org/site-information). I have included midiutil in this package [per his recommendation](https://github.com/duggan/midiutil/blob/master/README.txt).
 
