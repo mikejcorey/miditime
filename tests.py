@@ -1,7 +1,7 @@
 import unittest
 import datetime
 import pytz
-from MIDITime import MIDITime
+from miditime.miditime import MIDITime
 
 
 class DateTest(unittest.TestCase):

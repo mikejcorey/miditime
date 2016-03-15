@@ -21,7 +21,7 @@ Usage
 
 ### Very basic:
 ```python
-from miditime.MIDITime import MIDITime
+from miditime.miditime import MIDITime
 
 # Instantiate the class with a tempo (120bpm is the default) and an output file destination.
 mymidi = MIDITime(120, 'myfile.mid')
@@ -45,7 +45,7 @@ mymidi.save_midi()
 Instantiate the class with a tempo (120bpm is the default), an output file destination,  the number of seconds you want to represent a year in the final song (default is 5 sec/year), the base octave (C5 is middle C, so the default is 5, and how many octaves you want your output to range over (default is 1).
 
 ```python
-from miditime.MIDITime import MIDITime
+from miditime.miditime import MIDITime
 mymidi = MIDITime(120, 'myfile.mid', 5, 5, 1)
 ```
 
