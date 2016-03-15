@@ -12,7 +12,7 @@
 #-----------------------------------------------------------------------------
 
 import datetime
-from midiutil.MidiFile import MIDIFile
+from midiutil.MidiFile3 import MIDIFile
 
 
 class MIDITime(object):
@@ -71,7 +71,7 @@ class MIDITime(object):
             index = int(scale_pct*float(len(full_mode)))
             if index >= len(full_mode):
                 index = len(full_mode) - 1
-            print full_mode[index]
+            print(full_mode[index])
             return full_mode[index]
 
     def scale_to_note(self, scale_pct, mode):  # Manually go through notes so it doesn't inaccurately jump an octave sometimes.
@@ -159,7 +159,7 @@ class MIDITime(object):
         volume = note[2]
         duration = note[3]
 
-        print pitch, time, duration, volume
+        print(pitch, time, duration, volume)
 
         # Now add the note.
         self.MIDIFile.addNote(track, channel, pitch, time, duration, volume)
