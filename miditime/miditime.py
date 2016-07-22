@@ -18,11 +18,14 @@ from midiutil.MidiFile3 import MIDIFile
 
 class MIDITime(object):
 
-    def __init__(self, tempo=120, outfile='miditime.mid', seconds_per_year=5, base_octave=5, octave_range=1):
+    def __init__(self, tempo=120, outfile='miditime.mid', seconds_per_year=5, base_octave=5, octave_range=1, custom_epoch=None):
         self.tempo = tempo
         self.outfile = outfile
         self.tracks = []
-        self.epoch = datetime.datetime(1970, 1, 1)
+        if custom_epoch:  # Only necessary if you have data that starts before 1970 and DO NOT want to start your midi at the first sound.
+            self.epoch = custom_epoch
+        else:
+            self.epoch = datetime.datetime(1970, 1, 1)
         self.seconds_per_year = seconds_per_year
         self.base_octave = base_octave
         self.octave_range = octave_range
@@ -60,6 +63,35 @@ class MIDITime(object):
     def days_since_epoch(self, input):
         normalized_epoch = self.normalize_datetime(input, self.epoch)
         return (input - normalized_epoch).total_seconds() / 60 / 60 / 24  # How many days, with fractions
+
+    def map_week_to_day(self, year, week_num, desired_day_num=None):
+        ''' Helper for weekly data, so when you jump to a new year you don't have notes playing too close together. Basically returns the first Sunday, Monday, etc. in 0-indexed integer format that is in that week.
+
+        Usage: Once without a desired_day_num, then feed it a day_num in the loop
+
+        Example:
+        first_day = self.map_week_to_day(filtered_data[0]['Year'], filtered_data[0]['Week'])
+
+        for r in filtered_data:
+            # Convert the week to a date in that week
+            week_start_date = self.map_week_to_day(r['Year'], r['Week'], first_day.weekday())
+            # To get your date into an integer format, convert that date into the number of days since Jan. 1, 1970
+            days_since_epoch = self.mymidi.days_since_epoch(week_start_date)
+
+        '''
+        year_start = datetime(int(year), 1, 1).date()
+        year_start_day = year_start.weekday()
+        week_start_date = year_start + timedelta(weeks=1 * (int(week_num) - 1))
+        week_start_day = week_start_date.weekday()
+        if desired_day_num and week_start_day < desired_day_num:
+            return week_start_date + timedelta(days=(desired_day_num - week_start_day))
+        return week_start_date
+
+    def get_data_range(self, data_list, attribute_name):
+        data_list = list(data_list)  # If the data is still a CSV object, once you loop through it you'll get rewind issues. So coercing to list.
+        minimum = min([float(d[attribute_name]) for d in data_list])
+        maximum = max([float(d[attribute_name]) for d in data_list])
+        return [minimum, maximum]
 
     def scale_to_note_classic(self, scale_pct, mode):  # Only works in multi-octave mode if in C Major (i.e. all the notes are used. Should not be used in other keys, unless octave range is 1.)
         full_mode = []
