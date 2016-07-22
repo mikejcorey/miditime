@@ -136,7 +136,7 @@ class MIDITime(object):
         return domain_pct
 
     def log_scale_pct(self, domain_min, domain_max, input, reverse=False, direction='exponential'):
-        if direction == 'exponential':
+        if direction == 'exponential':  # E.G. earthquakes
             min_log_domain = pow(10, domain_min)
             max_log_domain = pow(10, domain_max)
             domain_range = max_log_domain - min_log_domain
