@@ -28,11 +28,11 @@ class MIDITime(object):
         self.note_chart = [["C"], ["C#", "Db"], ["D"], ["D#", "Eb"], ["E"], ["F"], ["F#", "Gb"], ["G"], ["G#", "Ab"], ["A"], ["A#", "Bb"], ["B"]]
 
     def beat(self, numdays):
-        beats_per_second = self.tempo/60.0
-        beats_per_datayear = self.seconds_per_year*beats_per_second
-        beats_per_dataday = beats_per_datayear/365.25
+        beats_per_second = self.tempo / 60.0
+        beats_per_datayear = self.seconds_per_year * beats_per_second
+        beats_per_dataday = beats_per_datayear / 365.25
 
-        return round(beats_per_dataday*numdays, 2)
+        return round(beats_per_dataday * numdays, 2)
 
     def check_tz(self, input):
         if input.tzinfo:
@@ -58,17 +58,17 @@ class MIDITime(object):
 
     def days_since_epoch(self, input):
         normalized_epoch = self.normalize_datetime(input, self.epoch)
-        return (input - normalized_epoch).total_seconds()/60/60/24  # How many days, with fractions
+        return (input - normalized_epoch).total_seconds() / 60 / 60 / 24  # How many days, with fractions
 
     def scale_to_note_classic(self, scale_pct, mode):  # Only works in multi-octave mode if in C Major (i.e. all the notes are used. Should not be used in other keys, unless octave range is 1.)
         full_mode = []
         n = 0
         while n < self.octave_range:
             for m in mode:
-                current_octave = str(self.base_octave + (n*1))
+                current_octave = str(self.base_octave + (n * 1))
                 full_mode.append(m + current_octave)
             n += 1
-        index = int(scale_pct*float(len(full_mode)))
+        index = int(scale_pct * float(len(full_mode)))
         if index >= len(full_mode):
             index = len(full_mode) - 1
         print(full_mode[index])
@@ -82,7 +82,7 @@ class MIDITime(object):
             for note_group in self.note_chart:
                 out_group = []
                 for note in note_group:
-                    current_octave = self.base_octave + (n*1)
+                    current_octave = self.base_octave + (n * 1)
                     out_group.append(note + str(current_octave))
                 full_c_haystack.append(out_group)
             n += 1
@@ -105,7 +105,7 @@ class MIDITime(object):
             n += 1
 
         # Now run through your specified mode and pick the exact notes in those octaves
-        index = int(scale_pct*float(len(full_mode)))
+        index = int(scale_pct * float(len(full_mode)))
         if index >= len(full_mode):
             index = len(full_mode) - 1
 
@@ -123,24 +123,32 @@ class MIDITime(object):
                     midinum = i
                     break
             i += 1
-        midinum += (int(octave))*12
+        midinum += (int(octave)) * 12
         return midinum
 
     def linear_scale_pct(self, domain_min, domain_max, input, reverse=False):
         domain_range = float(domain_max) - float(domain_min)
-        domain_pct = (input - domain_min)/domain_range
+        domain_pct = (input - domain_min) / domain_range
 
         if reverse:
             domain_pct = 1 - domain_pct
         return domain_pct
 
-    def log_scale_pct(self, domain_min, domain_max, input, reverse=False):
-        min_log_domain = pow(10, domain_min)
-        max_log_domain = pow(10, domain_max)
-        domain_range = max_log_domain - min_log_domain
+    def log_scale_pct(self, domain_min, domain_max, input, reverse=False, direction='exponential'):
+        if direction == 'exponential':
+            min_log_domain = pow(10, domain_min)
+            max_log_domain = pow(10, domain_max)
+            domain_range = max_log_domain - min_log_domain
 
-        log_input = pow(10, input)
-        domain_pct = (log_input - min_log_domain)/domain_range
+            log_input = pow(10, input)
+        elif direction == 'log':  # natural log scale
+            min_log_domain = log(domain_min)
+            max_log_domain = log(domain_max)
+            domain_range = max_log_domain - min_log_domain
+
+            log_input = log(input)
+
+        domain_pct = (log_input - min_log_domain) / domain_range
 
         if reverse:
             domain_pct = 1 - domain_pct
@@ -148,7 +156,7 @@ class MIDITime(object):
 
     def scale(self, range_min, range_max, input_pct):
         scale_range = range_max - range_min
-        return range_min + (input_pct*scale_range)
+        return range_min + (input_pct * scale_range)
 
     def add_track(self, note_list):
         self.tracks.append(note_list)
