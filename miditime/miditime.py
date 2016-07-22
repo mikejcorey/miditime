@@ -146,11 +146,11 @@ class MIDITime(object):
             if domain_min > 0:
                 min_log_domain = log(domain_min)
             else:
-                min_log_domain = 0  # Technically this is not a true log scale. Someone smarter than me will have to figure this out.
+                min_log_domain = log(0.1)  # Technically this is not a true log scale. Someone smarter than me will have to figure this out.
             if domain_max > 0:
                 max_log_domain = log(domain_max)
             else:
-                max_log_domain = 0  # Technically this is not a true log scale. Someone smarter than me will have to figure this out.
+                max_log_domain = log(0.1)  # Technically this is not a true log scale. Someone smarter than me will have to figure this out.
             domain_range = max_log_domain - min_log_domain
 
             log_input = log(input)
