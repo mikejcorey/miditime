@@ -143,8 +143,14 @@ class MIDITime(object):
 
             log_input = pow(10, input)
         elif direction == 'log':  # natural log scale
-            min_log_domain = log(domain_min)
-            max_log_domain = log(domain_max)
+            if domain_min > 0:
+                min_log_domain = log(domain_min)
+            else:
+                min_log_domain = 0  # Technically this is not a true log scale. Someone smarter than me will have to figure this out.
+            if domain_max > 0:
+                max_log_domain = log(domain_max)
+            else:
+                max_log_domain = 0  # Technically this is not a true log scale. Someone smarter than me will have to figure this out.
             domain_range = max_log_domain - min_log_domain
 
             log_input = log(input)
