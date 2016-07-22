@@ -12,6 +12,7 @@
 #-----------------------------------------------------------------------------
 
 import datetime
+from math import log
 from midiutil.MidiFile3 import MIDIFile
 
 
