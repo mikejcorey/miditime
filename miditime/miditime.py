@@ -220,7 +220,6 @@ class MIDITime(object):
             # Tracks are numbered from zero. Times are measured in beats.
             track = i
             time = 0
-            # channel = 0
 
             # Add track name and tempo.
             self.MIDIFile.addTrackName(track, time, "Track 1")
