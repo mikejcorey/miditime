@@ -79,12 +79,12 @@ class MIDITime(object):
             days_since_epoch = self.mymidi.days_since_epoch(week_start_date)
 
         '''
-        year_start = datetime(int(year), 1, 1).date()
+        year_start = datetime.datetime(int(year), 1, 1).date()
         year_start_day = year_start.weekday()
-        week_start_date = year_start + timedelta(weeks=1 * (int(week_num) - 1))
+        week_start_date = year_start + datetime.timedelta(weeks=1 * (int(week_num) - 1))
         week_start_day = week_start_date.weekday()
         if desired_day_num and week_start_day < desired_day_num:
-            return week_start_date + timedelta(days=(desired_day_num - week_start_day))
+            return week_start_date + datetime.timedelta(days=(desired_day_num - week_start_day))
         return week_start_date
 
     def get_data_range(self, data_list, attribute_name):
@@ -220,14 +220,20 @@ class MIDITime(object):
             # Tracks are numbered from zero. Times are measured in beats.
             track = i
             time = 0
-            channel = 0
+            # channel = 0
 
             # Add track name and tempo.
             self.MIDIFile.addTrackName(track, time, "Track 1")
             self.MIDIFile.addTempo(track, time, self.tempo)
 
             for n in note_list:
-                self.add_note(track, channel, n)
+                if len(n) == 2:
+                    note = n[0]
+                    channel = n[1]
+                else:
+                    note = n
+                    channel = 0
+                self.add_note(track, channel, note)
 
         # And write it to disk.
         binfile = open(self.outfile, 'wb')
