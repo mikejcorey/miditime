@@ -87,10 +87,14 @@ class MIDITime(object):
             return week_start_date + datetime.timedelta(days=(desired_day_num - week_start_day))
         return week_start_date
 
-    def get_data_range(self, data_list, attribute_name):
+    def get_data_range(self, data_list, attribute_name, ignore_nulls=True):
         data_list = list(data_list)  # If the data is still a CSV object, once you loop through it you'll get rewind issues. So coercing to list.
-        minimum = min([float(d[attribute_name]) for d in data_list])
-        maximum = max([float(d[attribute_name]) for d in data_list])
+        if ignore_nulls:
+            minimum = min([float(d[attribute_name]) for d in data_list if d['attribute_name']])
+            maximum = max([float(d[attribute_name]) for d in data_list if d['attribute_name']])
+        else:
+            minimum = min([float(d[attribute_name]) for d in data_list])
+            maximum = max([float(d[attribute_name]) for d in data_list])
         return [minimum, maximum]
 
     def scale_to_note_classic(self, scale_pct, mode):  # Only works in multi-octave mode if in C Major (i.e. all the notes are used. Should not be used in other keys, unless octave range is 1.)
