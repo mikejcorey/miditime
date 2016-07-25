@@ -90,8 +90,8 @@ class MIDITime(object):
     def get_data_range(self, data_list, attribute_name, ignore_nulls=True):
         data_list = list(data_list)  # If the data is still a CSV object, once you loop through it you'll get rewind issues. So coercing to list.
         if ignore_nulls:
-            minimum = min([float(d[attribute_name]) for d in data_list if d['attribute_name']])
-            maximum = max([float(d[attribute_name]) for d in data_list if d['attribute_name']])
+            minimum = min([float(d[attribute_name]) for d in data_list if d[attribute_name]])
+            maximum = max([float(d[attribute_name]) for d in data_list if d[attribute_name]])
         else:
             minimum = min([float(d[attribute_name]) for d in data_list])
             maximum = max([float(d[attribute_name]) for d in data_list])
