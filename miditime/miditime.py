@@ -6,7 +6,7 @@
 # Author:      Michael Corey <mcorey) at (cironline . org>
 #
 # Created:     2015/05/12
-# Copyright:   (c) 2015 Michael Corey
+# Copyright:   (c) 2016 Michael Corey
 # License:     Please see README for the terms under which this
 #              software is distributed.
 #-----------------------------------------------------------------------------
@@ -226,7 +226,7 @@ class MIDITime(object):
             time = 0
 
             # Add track name and tempo.
-            self.MIDIFile.addTrackName(track, time, "Track 1")
+            self.MIDIFile.addTrackName(track, time, "Track %s" % i)
             self.MIDIFile.addTempo(track, time, self.tempo)
 
             for n in note_list:
