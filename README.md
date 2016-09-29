@@ -3,7 +3,7 @@ It's MIDITime!
 
 Do you have time time series data you want to play as music? Of course you do!
 
-MIDITime converts any kind of time series data into pitch, attack and duration values based on musical options that you set up, then outputs a .mid file.
+MIDITime converts any kind of time series data into pitch, velocity and duration values based on musical options that you set up, then outputs a .mid file.
 
 MIDI files aren't technically audio -- they're instructions on how software instruments should be played. You can either play .mid files directly in some music applications, or import them into a wide variety of music editors (like ProTools, Ableton, MaxMSP) and add a ton of bells and whistles to get broadcast-ready audio.
 
@@ -26,10 +26,10 @@ from miditime.miditime import MIDITime
 # Instantiate the class with a tempo (120bpm is the default) and an output file destination.
 mymidi = MIDITime(120, 'myfile.mid')
 
-# Create a list of notes. Each note is a list: [time, pitch, attack, duration]
+# Create a list of notes. Each note is a list: [time, pitch, velocity, duration]
 midinotes = [
-    [0, 60, 200, 3],  #At 0 beats (the start), Middle C with attack 200, for 3 beats
-    [10, 61, 200, 4]  #At 10 beats (12 seconds from start), C#5 with attack 200, for 4 beats
+    [0, 60, 127, 3],  #At 0 beats (the start), Middle C with velocity 127, for 3 beats
+    [10, 61, 127, 4]  #At 10 beats (12 seconds from start), C#5 with velocity 127, for 4 beats
 ]
 
 # Add a track with those notes
@@ -113,7 +113,7 @@ for d in my_data_timed:
     note_list.append([
         d['beat'] - start_time,
         mag_to_pitch_tuned(d['magnitude']),
-        100,  # attack
+        100,  # velocity
         1  # duration, in beats
     ])
 ```

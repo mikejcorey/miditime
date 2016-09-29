@@ -207,13 +207,13 @@ class MIDITime(object):
     def add_note(self, track, channel, note):
         time = note[0]
         pitch = note[1]
-        volume = note[2]
+        velocity = note[2]
         duration = note[3]
 
-        print(pitch, time, duration, volume)
+        print(pitch, time, duration, velocity)
 
         # Now add the note.
-        self.MIDIFile.addNote(track, channel, pitch, time, duration, volume)
+        self.MIDIFile.addNote(track, channel, pitch, time, duration, velocity)
 
     def save_midi(self):
         # Create the MIDIFile Object with 1 track
