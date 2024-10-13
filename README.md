@@ -130,7 +130,17 @@ mymidi.save_midi()
 ```
 
 ### Play your music:
-There are many programs to work with MIDI, but [timidity](http://sourceforge.net/projects/timidity/) (installable with apt) is a simple command-line one if you just want to hear what you hath wrought.
+
+There are many programs to work with MIDI. If you are working in jupyter or similar notebook environment, [music21](https://music21-mit.blogspot.com/) is very easy to implement and play right in the notebook.
+
+```
+from music21 import converter
+m = converter.parse('myfile.mid')
+m.show('midi')
+```
+
+Other options:
+- [timidity](http://sourceforge.net/projects/timidity/) (installable with apt) is a simple command-line one if you just want to hear what you hath wrought.
 
 ```
 timidity mymidifilename.mid
