@@ -201,10 +201,22 @@ class MIDITime(object):
         scale_range = range_max - range_min
         return range_min + (input_pct * scale_range)
 
-    def add_track(self, note_list):
-        self.tracks.append(note_list)
+    def add_track(self, note_list, program=0, channel=0, start_time=0):
+        """ This sets up data to be written to a midiutil MidiFile instance after all tracks have been laid out. This seems really duplicative, except it seems that you need to know the number of tracks you will end up with before instantiating a MidiFile instance. I could be wrong. Default program aka instrument is grand piano (0). General MIDI instrument codes: https://www.ccarh.org/courses/253/handout/gminstruments/"""
 
-    def add_note(self, track, channel, note):
+        track_obj = {
+            'note_list': note_list,
+            # 'track_num': len(self.tracks),
+            'program': program,
+            'channel': channel,
+            'start_time': start_time
+        }
+        self.tracks.append(track_obj)
+
+        return track_obj
+        
+
+    def add_note(self, note, track=0, channel=0):
         time = note[0]
         pitch = note[1]
         velocity = note[2]
@@ -216,29 +228,36 @@ class MIDITime(object):
         self.MIDIFile.addNote(track, channel, pitch, time, duration, velocity)
 
     def save_midi(self):
-        # Create the MIDIFile Object with 1 track
+        # Create the MIDIFile Object with n tracks
         self.MIDIFile = MIDIFile(len(self.tracks))
 
-        for i, note_list in enumerate(self.tracks):
+        
+        # self.MIDIFile.addProgramChange(track, channel, time, program)
+
+        for track_num, track_obj in enumerate(self.tracks):
 
             # Tracks are numbered from zero. Times are measured in beats.
-            track = i
-            time = 0
+            # track_num = i
+            # time = 0
 
             # Add track name and tempo.
-            self.MIDIFile.addTrackName(track, time, "Track %s" % i)
-            self.MIDIFile.addTempo(track, time, self.tempo)
+            self.MIDIFile.addTrackName(track_num, track_obj['start_time'], "Track %s" % track_num)
+            # Set program (aka instrument) for track
+            self.MIDIFile.addProgramChange(track_num, track_obj['channel'], track_obj['start_time'], track_obj['program'])
+            self.MIDIFile.addTempo(track_num, track_obj['start_time'], self.tempo)
 
-            for n in note_list:
-                if len(n) == 2:
-                    note = n[0]
-                    channel = n[1]
-                else:
-                    note = n
-                    channel = 0
-                self.add_note(track, channel, note)
+            for note in track_obj['note_list']:
+                # if len(n) == 2:
+                #     note = n[0]
+                #     channel = n[1]
+                # else:
+                #     note = n
+                #     channel = 0
+                self.add_note(note, track_num, track_obj['channel'])
 
         # And write it to disk.
         binfile = open(self.outfile, 'wb')
         self.MIDIFile.writeFile(binfile)
         binfile.close()
+
+        return self.MIDIFile
