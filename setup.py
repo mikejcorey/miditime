@@ -14,7 +14,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='1.1.3',
+    version='1.2.1',
 
     description='Generate MIDI files from time series data. You can control can control what octaves and octave ranges you want.',
     # long_description=long_description,
@@ -24,7 +24,7 @@ setup(
 
     # Author details
     author='Michael Corey',
-    author_email='mcorey@cironline.org',
+    author_email='mikejcorey@gmail.com',
 
     # Choose your license
     license='MIT',
