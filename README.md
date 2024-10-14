@@ -1,6 +1,12 @@
 It's MIDITime!
 =======================
 
+**UPDATE NOTE OCT. 14, 2024: After a long hiatus I have been revamping this package to use more modern package management and just fix some weird choices I made in the past when I was a less experienced developer. I'm still working on regaining access to the PyPI account so I can update the package there.
+
+1 BREAKING CHANGE: Note that import of module is now slightly different in capitalization.
+
+I am still new to package creation and am re-learning stuff I forgot long ago, so if you see things that don't make sense please let me know.**
+
 Do you have time time series data you want to play as music? Of course you do!
 
 MIDITime converts any kind of time series data into pitch, velocity and duration values based on musical options that you set up, then outputs a .mid file.
@@ -40,7 +46,7 @@ mymidi.save_midi()
 
 ```
 
-### Multiple instruments (programs)
+### Multiple instruments (programs):
 
 MIDI files can play different instruments. MIDITime assumes that you will want one instrument per track.
 
