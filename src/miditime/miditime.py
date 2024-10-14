@@ -6,7 +6,7 @@
 # Author:      Michael Corey <mikejcorey) at (gmail . com>
 #
 # Created:     2015/05/12
-# Copyright:   (c) 2024 Michael Corey
+# Copyright:   (c) 2015-2024 Michael Corey
 # License:     Please see LICENSE for the terms under which this
 #              software is distributed.
 #-----------------------------------------------------------------------------
@@ -236,26 +236,18 @@ class MIDITime(object):
         for track_num, track_obj in enumerate(self.tracks):
 
             # Tracks are numbered from zero. Times are measured in beats.
-
             channel = track_num
 
             # Add track name and tempo.
             self.MIDIFile.addTrackName(track_num, track_obj['start_time'], "Track %s" % track_num)
 
             # Set program (aka instrument) for track
-            # channel, time, program
-            # track, channel, time, program
             self.MIDIFile.addProgramChange(track_num, channel, track_obj['start_time'], track_obj['program'])
 
             self.MIDIFile.addTempo(track_num, track_obj['start_time'], self.tempo)
 
             for note in track_obj['note_list']:
-                # if len(n) == 2:
-                #     note = n[0]
-                #     channel = n[1]
-                # else:
-                #     note = n
-                #     channel = 0
+
                 self.add_note(note, track_num)
 
         # And write it to disk.
