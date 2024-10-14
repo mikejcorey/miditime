@@ -60,7 +60,7 @@ from miditime.MIDITime import MIDITime
 m = MIDITime(120, 'trackdemo.mid')
 
 # Choose instrument for track 1
-track_1_program = 0  # 0 = Grand piano
+track_1_program = 0  # 0 = Acoustic grand piano
 track_1_notes = [
     [0, 60, 127, 3],  #At 0 beats (the start), Middle C with velocity 127, for 3 beats
     [10, 61, 127, 4]  #At 10 beats (12 seconds from start), C#5 with velocity 127, for 4 beats
@@ -68,7 +68,7 @@ track_1_notes = [
 m.add_track(track_1_notes, track_1_program)  # Program num as argument
 
 # Choose instrument for track 2
-track_2_program = 16 # 
+track_2_program = 16  # Hammond organ
 track_2_notes = [
     [5, 50, 127, 3],  #At 0 beats (the start), C4 with velocity 127, for 3 beats
     [12, 51, 127, 4]  #At 10 beats (12 seconds from start), C#4 with velocity 127, for 4 beats
