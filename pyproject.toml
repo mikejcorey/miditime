@@ -1,0 +1,49 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "miditime"
+dynamic = ["version"]
+description = "Generate MIDI files from time series data. You can control can control what octaves and octave ranges you want."
+readme = "README.md"
+license = "MIT"
+authors = [
+    { name = "Michael Corey", email = "mikejcorey@gmail.com" },
+]
+keywords = [
+    "audio",
+    "data",
+    "midi",
+    "python",
+    "series",
+    "time",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Other Audience",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Multimedia :: Sound/Audio",
+    "Topic :: Multimedia :: Sound/Audio :: MIDI",
+    "Topic :: Scientific/Engineering :: Visualization",
+]
+dependencies = [
+    "pytz",
+    "pytest"
+]
+
+[project.urls]
+Homepage = "https://github.com/cirlabs/miditime"
+
+[tool.hatch.version]
+path = "src/miditime/__init__.py"
+
+[tool.hatch.build.targets.sdist]
+packages = ["src/miditime", "src/midiutil"]

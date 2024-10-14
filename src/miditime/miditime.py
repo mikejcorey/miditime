@@ -1,13 +1,13 @@
 
 #-----------------------------------------------------------------------------
-# Name:        makemidi.py
+# Name:        miditime.py
 # Purpose:     Convert time-series data to a .mid file.
 #
-# Author:      Michael Corey <mcorey) at (cironline . org>
+# Author:      Michael Corey <mikejcorey) at (gmail . com>
 #
 # Created:     2015/05/12
-# Copyright:   (c) 2016 Michael Corey
-# License:     Please see README for the terms under which this
+# Copyright:   (c) 2024 Michael Corey
+# License:     Please see LICENSE for the terms under which this
 #              software is distributed.
 #-----------------------------------------------------------------------------
 
@@ -201,14 +201,14 @@ class MIDITime(object):
         scale_range = range_max - range_min
         return range_min + (input_pct * scale_range)
 
-    def add_track(self, note_list, program=0, channel=0, start_time=0):
+    def add_track(self, note_list, program=0, start_time=0):
         """ This sets up data to be written to a midiutil MidiFile instance after all tracks have been laid out. This seems really duplicative, except it seems that you need to know the number of tracks you will end up with before instantiating a MidiFile instance. I could be wrong. Default program aka instrument is grand piano (0). General MIDI instrument codes: https://www.ccarh.org/courses/253/handout/gminstruments/"""
 
         track_obj = {
             'note_list': note_list,
             # 'track_num': len(self.tracks),
             'program': program,
-            'channel': channel,
+            # 'channel': track_num + 1,
             'start_time': start_time
         }
         self.tracks.append(track_obj)
@@ -216,34 +216,37 @@ class MIDITime(object):
         return track_obj
         
 
-    def add_note(self, note, track=0, channel=0):
+    def add_note(self, note, track_num=0):
         time = note[0]
         pitch = note[1]
         velocity = note[2]
         duration = note[3]
 
-        print(pitch, time, duration, velocity)
+        channel = track_num
+
+        print(pitch, time, duration, velocity, track_num, channel)
 
         # Now add the note.
-        self.MIDIFile.addNote(track, channel, pitch, time, duration, velocity)
+        self.MIDIFile.addNote(track_num, channel, pitch, time, duration, velocity)
 
     def save_midi(self):
         # Create the MIDIFile Object with n tracks
         self.MIDIFile = MIDIFile(len(self.tracks))
 
-        
-        # self.MIDIFile.addProgramChange(track, channel, time, program)
-
         for track_num, track_obj in enumerate(self.tracks):
 
             # Tracks are numbered from zero. Times are measured in beats.
-            # track_num = i
-            # time = 0
+
+            channel = track_num
 
             # Add track name and tempo.
             self.MIDIFile.addTrackName(track_num, track_obj['start_time'], "Track %s" % track_num)
+
             # Set program (aka instrument) for track
-            self.MIDIFile.addProgramChange(track_num, track_obj['channel'], track_obj['start_time'], track_obj['program'])
+            # channel, time, program
+            # track, channel, time, program
+            self.MIDIFile.addProgramChange(track_num, channel, track_obj['start_time'], track_obj['program'])
+
             self.MIDIFile.addTempo(track_num, track_obj['start_time'], self.tempo)
 
             for note in track_obj['note_list']:
@@ -253,7 +256,7 @@ class MIDITime(object):
                 # else:
                 #     note = n
                 #     channel = 0
-                self.add_note(note, track_num, track_obj['channel'])
+                self.add_note(note, track_num)
 
         # And write it to disk.
         binfile = open(self.outfile, 'wb')

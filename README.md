@@ -21,7 +21,7 @@ Usage
 
 ### Very basic:
 ```python
-from miditime.miditime import MIDITime
+from miditime.MIDITime import MIDITime
 
 # Instantiate the class with a tempo (120bpm is the default) and an output file destination.
 mymidi = MIDITime(120, 'myfile.mid')
@@ -40,12 +40,44 @@ mymidi.save_midi()
 
 ```
 
+### Multiple instruments (programs)
+
+MIDI files can play different instruments. MIDITime assumes that you will want one instrument per track.
+
+A list of MIDI program numbers [can be found here](https://www.ccarh.org/courses/253/handout/gminstruments/).
+
+```python
+
+from miditime.MIDITime import MIDITime
+
+# Instantiate the class with a tempo (120bpm is the default) and an output file destination.
+m = MIDITime(120, 'trackdemo.mid')
+
+# Choose instrument for track 1
+track_1_program = 0  # 0 = Grand piano
+track_1_notes = [
+    [0, 60, 127, 3],  #At 0 beats (the start), Middle C with velocity 127, for 3 beats
+    [10, 61, 127, 4]  #At 10 beats (12 seconds from start), C#5 with velocity 127, for 4 beats
+]
+m.add_track(track_1_notes, track_1_program)  # Program num as argument
+
+# Choose instrument for track 2
+track_2_program = 16 # 
+track_2_notes = [
+    [5, 50, 127, 3],  #At 0 beats (the start), C4 with velocity 127, for 3 beats
+    [12, 51, 127, 4]  #At 10 beats (12 seconds from start), C#4 with velocity 127, for 4 beats
+]
+m.add_track(track_2_notes, track_2_program)  # Program num as argument
+
+out_midi_obj = m.save_midi()
+```
+
 ### A little more fun, a lot more control:
 
 Instantiate the class with a tempo (120bpm is the default), an output file destination,  the number of seconds you want to represent a year in the final song (default is 5 sec/year), the base octave (C5 is middle C, so the default is 5, and how many octaves you want your output to range over (default is 1).
 
 ```python
-from miditime.miditime import MIDITime
+from miditime.MIDITime import MIDITime
 mymidi = MIDITime(120, 'myfile.mid', 5, 5, 1)
 ```
 
