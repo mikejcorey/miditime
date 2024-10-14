@@ -377,7 +377,7 @@ class MIDITrack:
                 self.MIDIEventList.append(event)
 
             else:
-                print "Error in MIDITrack: Unknown event type"
+                print("Error in MIDITrack: Unknown event type")
                 sys.exit(2)
             
         # Assumptions in the code expect the list to be time-sorted.
