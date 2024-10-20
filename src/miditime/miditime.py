@@ -13,8 +13,8 @@
 
 import datetime
 from math import log
-from src.midiutil.MidiFile import MIDIFile
 
+from midiutil.MidiFile import MIDIFile
 
 class MIDITime(object):
 
