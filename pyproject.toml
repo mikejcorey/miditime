@@ -35,6 +35,7 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Visualization",
 ]
 dependencies = [
+    "midiutil",
     "pytz",
     "pytest"
 ]
@@ -46,4 +47,4 @@ Homepage = "https://github.com/cirlabs/miditime"
 path = "src/miditime/__init__.py"
 
 [tool.hatch.build.targets.sdist]
-packages = ["src/miditime", "src/midiutil"]
+packages = ["src/miditime"]
