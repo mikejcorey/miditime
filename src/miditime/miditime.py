@@ -14,10 +14,7 @@
 import datetime
 from math import log
 
-# try:
 from midiutil import MIDIFile
-# except:
-#     from src.midiutil_old.MidiFile import MIDIFile
 
 
 class MIDITime(object):
