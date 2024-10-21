@@ -1,5 +1,5 @@
 import os
-from src.miditime.MIDITime import MIDITime
+from miditime.MIDITime import MIDITime
 
 
 def test_basic_example():

@@ -1,5 +1,5 @@
 import os
-from src.miditime.MIDITime import MIDITime
+from miditime.MIDITime import MIDITime
 
 def test2Tracks():
     os.makedirs('tests/test_exports', exist_ok=True)

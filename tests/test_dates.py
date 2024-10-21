@@ -1,7 +1,7 @@
 import pytz
 import datetime
 
-from src.miditime.MIDITime import MIDITime
+from miditime.MIDITime import MIDITime
 
 def testDatetimeNaive():
     m = MIDITime()

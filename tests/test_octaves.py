@@ -1,4 +1,4 @@
-from src.miditime.MIDITime import MIDITime
+from miditime.MIDITime import MIDITime
 
 def testSimpleMode0():
     m = MIDITime(base_octave=5, octave_range=3)
