@@ -19,11 +19,6 @@ Installing
 ----------
 
 ```python
-# Temporarily, from this repository
-pipenv install https://github.com/mikejcorey/miditime/raw/refs/heads/main/dist/miditime-1.2.1-py2.py3-none-any.whl
-```
-
-```python
 pip install miditime
 ```
 
