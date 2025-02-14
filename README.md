@@ -1,7 +1,7 @@
 It's MIDITime!
 =======================
 
-**UPDATE NOTE OCT. 14, 2024: After a long hiatus I have been revamping this package to use more modern package management and just fix some weird choices I made in the past when I was a less experienced developer. I'm still working on regaining access to the PyPI account so I can update the package there.**
+**UPDATE NOTE Feb. 13, 2025: After a long hiatus I have been revamping this package to use more modern package management and just fix some weird choices I made in the past when I was a less experienced developer. The PyPI package has now also been updated.**
 
 **1 BREAKING CHANGE: Note that import of module is now slightly different in capitalization.**
 
