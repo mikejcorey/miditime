@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "miditime"
 dynamic = ["version"]
-description = "Generate MIDI files from time series data. You can control can control what octaves and octave ranges you want."
+description = "Generate MIDI files from time series data. You can control can control what octaves and octave ranges you want. Supports multiple tracks and instruments."
 readme = "README.md"
 license = "MIT"
 authors = [
@@ -41,7 +41,7 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/cirlabs/miditime"
+Homepage = "https://github.com/mikejcorey/miditime"
 
 [tool.hatch.version]
 path = "src/miditime/__init__.py"
